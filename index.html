@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: JetBrainsMono;
+        src: url(fonts/JetBrainsMono-ExtraLight.woff2);
+      }
+      @font-face {
+        font-family: JetBrainsMono-Bold;
+        src: url(fonts/JetBrainsMono-Bold.woff2);
+      }
+      @font-face {
+        font-family: JetBrainsMono-ExtraBold;
+        src: url(fonts/JetBrainsMono-ExtraBold.woff2);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #121212;
+        --color: #aaaaaa;
+        --light-border: #242424;
+        --border: #333333;
+        --primary-color: #bb86fc;
+        /* --accent: #bb86fc; */
+        --warning: #cf6679;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg);
+        color: var(--color);
+        font-family: "JetBrainsMono";
+        font-weight: lighter;
+        box-sizing: border-box;
+        padding: 24px 8px;
+        font-size: 14px;
+        min-width: 400px;
+        min-height: 300px;
+        max-height: fit-content;
+        scroll-behavior: smooth;
+      }
+      h1 {
+        text-align: left;
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 417px;
+        height: 10%;
+        font-family: JetBrainsMono-ExtraBold;
+      }
+      .bar {
+        display: flex;
+        height: 15%;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 0 5px;
+        gap: 5px;
+        margin-bottom: 0.2rem;
+      }
+      .box-row {
+        display: flex;
+        flex-direction: row;
+      }
+      #notes {
+        flex-basis: 100px;
+        height: 100%;
+        flex-grow: 1;
+        overflow-y: auto;
+        max-height: 250px;
+        border: 1px solid var(--border);
+        scroll-behavior: smooth;
+        /* scrollbar-gutter: stable; */
+        /* overflow: overlay; */
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+      }
+      .divider {
+        flex-basis: 10px;
+        background-color: #151515;
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+      input {
+        background-color: #1a1a1a;
+        border: 1px solid var(--border);
+        color: #ffffff;
+      }
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        background-color: #1d1d1d;
+        color: inherit;
+        border: 1px solid var(--light-border);
+        flex-basis: 200px;
+        font-family: JetBrainsMono-Bold;
+      }
+      /* button:hover {
+        background-color: #fff000;
+        color: #181818;
+      }
+      #save-list:hover {
+        background-color: #00ff00;
+      }
+      #delete-all:hover {
+        background-color: #ff0000;
+      } */
+      #delete-all {
+        background-color: #989898;
+        color: #000000;
+      }
+      ::-webkit-scrollbar {
+        color: inherit;
+        border: #000000 1px solid;
+        position: absolute;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #1f1f1f;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+      /* details {
+        min-height: 200px;
+      } */
+      summary {
+        display: flex;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-family: JetBrainsMono-Bold;
+        border-bottom: 2px solid #333333;
+        padding: 0.3rem;
+        min-height: 24px;
+        max-height: 24px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        text-overflow: ellipsis;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        &::after {
+          content: "▶";
+          margin-left: auto;
+          transition: transform 0.3s ease-out;
+          display: inline-block;
+        }
+        &:hover {
+          background-color: #1a1a1a;
+        }
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      details[open] summary {
+        background-color: #2a2a2a;
+        padding: 0.3rem;
+        &::after {
+          transform: rotate(90deg);
+        }
+      }
+      details[open] {
+        background-color: #1a1a1a;
+        overflow: hidden;
+      }
+      textarea {
+        min-height: 100%;
+        width: 100%;
+        background-color: inherit;
+        border: 0;
+        outline: 0;
+        color: inherit;
+        resize: vertical;
+        padding-top: 10px;
+        max-height: 128px;
+      }
+
+      /* .summary-text {
+      } */
+      /* ::-webkit-resizer {
+        color: inherit;
+        display: block;
+      } */
+      .keyboard-shortcuts {
+        position: fixed;
+        bottom: 20px;
+        right: -180px; /*must be the same as in JS*/
+        background-color: #dadada;
+        color: #222222;
+        padding: 1rem;
+        border-radius: 2px;
+        font-size: 0.65rem;
+        max-width: 250px;
+        z-index: 1000;
+        line-height: 1rem;
+        /* display: none; */
+        transition: all 0.2s;
+        &:hover {
+          right: 0px;
+        }
+      }
+      .keyboard-shortcuts h4 {
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+      }
+      .keyboard-shortcuts kbd {
+        background-color: #d1d1d1;
+        padding: 2px 6px;
+        border-radius: 2px;
+        font-family: monospace;
+        font-size: 9px;
+      }
+      .keyboard-shortcuts li {
+        list-style: none;
+      }
+      #list-status {
+        display: none;
+        justify-content: center;
+        min-width: 100%;
+        background-color: #1a1a1a;
+        /* border-top: 1px solid #333333; */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1>SAVE A NEW NOTE ANYTIME ANYWHERE</h1> -->
+    <div class="box">
+      <div class="bar" id="notes-list">
+        <button id="save-list">Save Lists</button>
+        <button id="create">Create List</button>
+        <button id="delete">Delete List</button>
+        <button id="delete-all">Delete All</button>
+      </div>
+      <div class="box-row">
+        <div id="notes"></div>
+      </div>
+      <div id="keyboard-shortcuts" class="keyboard-shortcuts">
+        <h4>⌨ Keyboard Shortcuts</h4>
+        <li><kbd>Ctrl+S</kbd> Save Lists</li>
+        <li><kbd>Ctrl+N</kbd> Create List</li>
+        <li><kbd>Delete</kbd> Delete List</li>
+        <li><kbd>Ctrl+Delete</kbd> Delete All</li>
+      </div>
+      <footer id="list-status"></footer>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
