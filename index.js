@@ -225,6 +225,7 @@ function refreshLists() {
   }
 }
 
+// Sidebar 
 const sidebar = document.getElementById("sidebar");
 const sidebarToggle = document.getElementById("sidebar-toggle");
 

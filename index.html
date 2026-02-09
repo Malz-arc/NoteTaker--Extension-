@@ -23,7 +23,7 @@
         box-sizing: border-box;
       }
       :root {
-        --bg: #121212;
+        --bg: #111;
         --color: #aaaaaa;
         --light-border: #242424;
         --border: #333333;
@@ -38,6 +38,7 @@
         color: var(--color);
         font-family: "JetBrainsMono";
         font-weight: lighter;
+        /* text-shadow: 0px 0px 2px #aaaaaa; */
         box-sizing: border-box;
         padding: 24px 8px;
         font-size: 14px;
@@ -136,11 +137,12 @@
       } */
       summary {
         display: flex;
+        align-items: center;
         cursor: pointer;
         font-size: 0.75rem;
         font-family: JetBrainsMono-Bold;
         border-bottom: 2px solid #333333;
-        padding: 0.3rem;
+        padding: 1rem;
         min-height: 24px;
         max-height: 24px;
         white-space: nowrap;
@@ -230,12 +232,51 @@
         background-color: #1a1a1a;
         /* border-top: 1px solid #333333; */
       }
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 300px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: #111;
+        border-right: 1px solid var(--border);
+        transition: left 0.2s;
+        padding-top: 57px;
+      }
+      [collapseSidebar] {
+        left: -300px;
+      }
+      .sidebar-toggle {
+        z-index: 1;
+      }
+      #sidebar-icon {
+        transition: all 0.2s;
+      }
+      input {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid #333;
+        margin-bottom: 10px;
+        margin-top: 1rem;
+        font-weight: 400;
+        padding: 14px;
+        border-radius: 8px;
+        max-height: 28px;
+      }
     </style>
   </head>
   <body>
     <!-- <h1>SAVE A NEW NOTE ANYTIME ANYWHERE</h1> -->
+     <div class="sidebar" id="sidebar" collapseSidebar="true">
+      <div id="backups"></div>
+      <input type="text" placeholder="Lists Name..." id="backup-input">
+      <button id="backup-btn">BACKUP CURRENT VIEW</button>
+     </div>
     <div class="box">
       <div class="bar" id="notes-list">
+        <button id="sidebar-toggle" class="sidebar-toggle"><span id="sidebar-icon">«</span></button>
         <button id="save-list">Save Lists</button>
         <button id="create">Create List</button>
         <button id="delete">Delete List</button>
